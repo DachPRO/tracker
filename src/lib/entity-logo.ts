@@ -5,15 +5,19 @@ const LOGO_EXTENSIONS = ["png", "jpg", "jpeg"] as const;
 
 function getUploadDir(): string {
   const override = process.env.LOGO_UPLOADS_DIR?.trim();
-  if (override) return path.resolve(override);
+  if (override) return path.resolve(/*turbopackIgnore: true*/ override);
+  // Statisch scoped — verhindert Standalone-Tracing des ganzen Repos (Next 16.4+)
   return path.join(process.cwd(), "public", "uploads", "logos");
 }
 
 export function findLocalLogoPath(entityId: string): string | null {
   const uploadDir = getUploadDir();
   for (const ext of LOGO_EXTENSIONS) {
-    const filepath = path.join(uploadDir, `${entityId}.${ext}`);
-    if (fs.existsSync(filepath)) {
+    const filepath = path.join(
+      /*turbopackIgnore: true*/ uploadDir,
+      `${entityId}.${ext}`,
+    );
+    if (fs.existsSync(/*turbopackIgnore: true*/ filepath)) {
       return filepath;
     }
   }

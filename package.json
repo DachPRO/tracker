@@ -3,19 +3,29 @@
   "version": "0.1.0",
   "private": true,
   "pnpm": {
-    "ignoredBuiltDependencies": ["sharp", "unrs-resolver"]
+    "ignoredBuiltDependencies": ["sharp", "unrs-resolver"],
+    "overrides": {
+      "brace-expansion@1": "1.1.21",
+      "brace-expansion@2": "2.1.7",
+      "brace-expansion@3": "3.0.9",
+      "brace-expansion@5": "5.0.12",
+      "browserslist": ">=4.28.7",
+      "source-map-js": ">=1.2.2",
+      "baseline-browser-mapping": ">=2.11.0"
+    }
   },
   "scripts": {
     "dev": "next dev",
     "build": "prisma generate && next build",
     "start": "prisma migrate deploy && next start",
     "lint": "eslint",
+    "typecheck": "tsc --noEmit",
     "postinstall": "prisma generate",
-    "validate": "eslint . && prisma generate && next build"
+    "validate": "eslint . && prisma generate && tsc --noEmit && next build"
   },
   "dependencies": {
     "@prisma/client": "^5.19.0",
-    "next": "16.2.4",
+    "next": "16.4.3",
     "react": "19.2.4",
     "react-dom": "19.2.4"
   },
@@ -25,7 +35,7 @@
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",
-    "eslint-config-next": "16.2.4",
+    "eslint-config-next": "16.4.3",
     "prisma": "^5.19.0",
     "tailwindcss": "^4",
     "typescript": "^5"
