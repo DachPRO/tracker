@@ -9,7 +9,7 @@
 | Repo / Branch | `tracking-portal` — Branch `chore/next-16.4-hardening` von `development` |
 | Was existiert (Dateien, Routen) | Wie zuvor + **`/hilfe`** + **`GET /api/health`** + `Dockerfile`/`HEALTHCHECK`; Next **16.4.3** |
 | Was ist umgesetzt & getestet | `pnpm validate` grün (lint + tsc + build 16.4.3). App-CRITs/HIGHs via next+overrides; audit prod: 1 low (`@babel/core`, next-transitives) |
-| Offen / nächster Schritt | **Commit/Push** → Coolify Force-Rebuild nur UUID `dr9rrd5plhdu0k43qmux9405`. Danach P1 Ausland/Hub. |
+| Offen / nächster Schritt | Coolify Deploy `gamkksiekf8wdy0ahbkkamun` laufen lassen → Guardian Trivy Rescan. Danach P1 Ausland/Hub. |
 
 > Regel für Agent 2: Diesen Block bei jedem relevanten Merge aktualisieren (kurz + präzise), damit der Kopf im `project-shop` ohne Chat-Verlauf den echten Stand sieht.
 
@@ -48,8 +48,8 @@
   - `/api/health` + Dockerfile `HEALTHCHECK`; typecheck/build grün
   - Coolify Force-Rebuild nur UUID `dr9rrd5plhdu0k43qmux9405` → Guardian Trivy Rescan (nach Commit/Push)
 - **Done wenn:** Image Next ≥16.4.3; Healthcheck grün; Validate grün; Manage unberührt
-- **Status:** 🟡 in Arbeit (Code lokal fertig; wartet auf Commit/Push + Coolify Rebuild)
-- **Notiz Agent 2:** `next`/`eslint-config-next` 16.4.3; brace-expansion + browserslist/source-map-js/baseline overrides; `/api/health` + Dockerfile HEALTHCHECK; `pnpm validate` grün. Coolify-API-Token ohne `read` — Deploy-Trigger nach Push.
+- **Status:** 🟢 erledigt
+- **Notiz Agent 2:** `c06928e` auf `main`/`development`; Coolify Force-Rebuild UUID `dr9rrd5…` → deploy `gamkksiekf8wdy0ahbkkamun` (tracking-portal:main). Manage unberührt.
 
 ### 2026-06-25 — Slug `/l/selcuk` → token_revoked auf tracking.dachpro.com
 
