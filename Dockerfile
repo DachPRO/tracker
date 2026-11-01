@@ -15,14 +15,20 @@ RUN apt-get update \
 RUN corepack enable && corepack prepare pnpm@9.15.9 --activate
 COPY package.json pnpm-lock.yaml ./
 COPY prisma ./prisma
-RUN pnpm install --frozen-lockfile
+# hoisted: top-level prisma/.prisma paths for migrate in runner
+RUN printf 'node-linker=hoisted\n' > .npmrc \
+  && pnpm install --frozen-lockfile
 
 FROM base AS builder
+RUN apt-get update \
+  && apt-get install -y --no-install-recommends openssl ca-certificates \
+  && rm -rf /var/lib/apt/lists/*
 RUN corepack enable && corepack prepare pnpm@9.15.9 --activate
 ENV NODE_OPTIONS=--max-old-space-size=4096
 # prisma generate braucht gültige URL-Syntax (keine echte Verbindung)
 ENV DATABASE_URL="postgresql://build:build@localhost:5432/build"
 COPY --from=deps /app/node_modules ./node_modules
+COPY --from=deps /app/.npmrc ./
 COPY . .
 RUN pnpm exec prisma generate && pnpm run build
 
@@ -38,10 +44,10 @@ COPY --from=builder /app/public ./public
 COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
 COPY --from=builder /app/prisma ./prisma
-COPY --from=deps /app/node_modules/prisma ./node_modules/prisma
-COPY --from=deps /app/node_modules/@prisma ./node_modules/@prisma
-COPY --from=deps /app/node_modules/.prisma ./node_modules/.prisma
-COPY --from=deps /app/node_modules/@prisma/client ./node_modules/@prisma/client
+COPY --from=builder /app/node_modules/prisma ./node_modules/prisma
+COPY --from=builder /app/node_modules/@prisma ./node_modules/@prisma
+COPY --from=builder /app/node_modules/.prisma ./node_modules/.prisma
+COPY --from=builder /app/node_modules/@prisma/client ./node_modules/@prisma/client
 COPY docker-entrypoint.sh ./
 RUN chmod +x docker-entrypoint.sh
 
