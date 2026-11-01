@@ -2,14 +2,14 @@
 
 **Repo:** dieses Verzeichnis (`tracking-portal`).
 
-## Stand (für `project-shop` / Kopf) — zuletzt: 2026-11-01 (Dev Coolify Trivy grün)
+## Stand (für `project-shop` / Kopf) — zuletzt: 2026-11-01 (Dev Trivy App C/H = 0)
 
 | Bereich | Status |
 |---------|--------|
-| Repo / Branch | `tracking-portal` — `development` / `main` @ Next **16.4.3** + brace-expansion overrides |
-| Was existiert (Dateien, Routen) | `/hilfe`, `/api/health`, Dockerfile HEALTHCHECK |
-| Was ist umgesetzt & getestet | Lockfile gepatcht; Prod + Dev Coolify Deploy grün (`txnc0e2…` / `woy9cw85…`). |
-| Offen / nächster Schritt | Guardian Trivy Rescan Dev → 0 App C/H bestätigen. Danach P1 Ausland/Hub. |
+| Repo / Branch | `tracking-portal` — `development` / `main` @ Next **16.4.3** + App-HIGH Overrides |
+| Was existiert (Dateien, Routen) | `/hilfe`, `/api/health`, Dockerfile HEALTHCHECK + curl |
+| Was ist umgesetzt & getestet | Dev Coolify `txnc0e2…` @ `3607fe6` healthy; Trivy **App library C/H = 0** (OS residual ignoriert) |
+| Offen / nächster Schritt | P1 Ausland/Hub |
 
 > Regel für Agent 2: Diesen Block bei jedem relevanten Merge aktualisieren (kurz + präzise), damit der Kopf im `project-shop` ohne Chat-Verlauf den echten Stand sieht.
 
@@ -48,8 +48,8 @@
   - Coolify Force-Rebuild **ohne Cache** nur UUID `txnc0e2ap4siwvz8i797909q`
   - Scan neu → 0 App CRITICAL/HIGH (OS/Residual ignorieren)
 - **Done wenn:** Deploy queued/grün; Trivy App C/H = 0
-- **Status:** 🟢 erledigt (Coolify Deploy grün 2026-11-01)
-- **Notiz Agent 2:** Force-Rebuild `txnc0e2…` → `woy9cw85…` grün; next 16.4.3 + brace overrides im Image. Trivy-Rescan beim Kopf/Guardian.
+- **Status:** 🟢 erledigt
+- **Notiz Agent 2:** Ursache letzter Fails = Coolify-HC ohne curl im slim-Image. Fix: Dockerfile + curl, npm aus Runner entfernt. Deploy `3607fe6` / `iyqcqqvf…` healthy; Trivy App library **0** C/H.
 
 ### 2026-10-29 — Next ≥16.4.3 + Healthcheck (Coolify UUID dr9rrd5…)
 
