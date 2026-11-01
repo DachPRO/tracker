@@ -2,14 +2,14 @@
 
 **Repo:** dieses Verzeichnis (`tracking-portal`).
 
-## Stand (für `project-shop` / Kopf) — zuletzt: 2026-11-01 (Dev Coolify Trivy)
+## Stand (für `project-shop` / Kopf) — zuletzt: 2026-11-01 (Dev Coolify Trivy grün)
 
 | Bereich | Status |
 |---------|--------|
 | Repo / Branch | `tracking-portal` — `development` / `main` @ Next **16.4.3** + brace-expansion overrides |
 | Was existiert (Dateien, Routen) | `/hilfe`, `/api/health`, Dockerfile HEALTHCHECK |
-| Was ist umgesetzt & getestet | Lockfile gepatcht; `pnpm audit --prod` = 0 crit/high (1 low `@babel/core`). Prod live ok. |
-| Offen / nächster Schritt | Dev Coolify Force-Rebuild `woy9cw85wobg2zykkpbnefca` (`txnc0e2…`) — nach Deploy Guardian Trivy Rescan → 0 App C/H. Danach P1 Ausland/Hub. |
+| Was ist umgesetzt & getestet | Lockfile gepatcht; Prod + Dev Coolify Deploy grün (`txnc0e2…` / `woy9cw85…`). |
+| Offen / nächster Schritt | Guardian Trivy Rescan Dev → 0 App C/H bestätigen. Danach P1 Ausland/Hub. |
 
 > Regel für Agent 2: Diesen Block bei jedem relevanten Merge aktualisieren (kurz + präzise), damit der Kopf im `project-shop` ohne Chat-Verlauf den echten Stand sieht.
 
@@ -48,8 +48,8 @@
   - Coolify Force-Rebuild **ohne Cache** nur UUID `txnc0e2ap4siwvz8i797909q`
   - Scan neu → 0 App CRITICAL/HIGH (OS/Residual ignorieren)
 - **Done wenn:** Deploy queued/grün; Trivy App C/H = 0
-- **Status:** 🟡 in Arbeit (Deploy queued — Trivy-Rescan ausstehend)
-- **Notiz Agent 2:** Repo bereits next 16.4.3 + brace overrides; Force-Rebuild `txnc0e2…` → deploy `woy9cw85wobg2zykkpbnefca` (tracking-portal:development).
+- **Status:** 🟢 erledigt (Coolify Deploy grün 2026-11-01)
+- **Notiz Agent 2:** Force-Rebuild `txnc0e2…` → `woy9cw85…` grün; next 16.4.3 + brace overrides im Image. Trivy-Rescan beim Kopf/Guardian.
 
 ### 2026-10-29 — Next ≥16.4.3 + Healthcheck (Coolify UUID dr9rrd5…)
 
