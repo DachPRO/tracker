@@ -2,14 +2,14 @@
 
 **Repo:** dieses Verzeichnis (`tracking-portal`).
 
-## Stand (für `project-shop` / Kopf) — zuletzt: 2026-10-29 (Next 16.4 Hardening)
+## Stand (für `project-shop` / Kopf) — zuletzt: 2026-11-01 (Dev Coolify Trivy)
 
 | Bereich | Status |
 |---------|--------|
-| Repo / Branch | `tracking-portal` — Branch `chore/next-16.4-hardening` von `development` |
-| Was existiert (Dateien, Routen) | Wie zuvor + **`/hilfe`** + **`GET /api/health`** + `Dockerfile`/`HEALTHCHECK`; Next **16.4.3** |
-| Was ist umgesetzt & getestet | `pnpm validate` grün (lint + tsc + build 16.4.3). App-CRITs/HIGHs via next+overrides; audit prod: 1 low (`@babel/core`, next-transitives) |
-| Offen / nächster Schritt | Coolify Deploy `gamkksiekf8wdy0ahbkkamun` laufen lassen → Guardian Trivy Rescan. Danach P1 Ausland/Hub. |
+| Repo / Branch | `tracking-portal` — `development` / `main` @ Next **16.4.3** + brace-expansion overrides |
+| Was existiert (Dateien, Routen) | `/hilfe`, `/api/health`, Dockerfile HEALTHCHECK |
+| Was ist umgesetzt & getestet | Lockfile gepatcht; `pnpm audit --prod` = 0 crit/high (1 low `@babel/core`). Prod live ok. |
+| Offen / nächster Schritt | Coolify **development** UUID `txnc0e2ap4siwvz8i797909q` Force-Rebuild (altes Image mit Next-CRITs) → Guardian Trivy 0 App C/H. Danach P1 Ausland/Hub. |
 
 > Regel für Agent 2: Diesen Block bei jedem relevanten Merge aktualisieren (kurz + präzise), damit der Kopf im `project-shop` ohne Chat-Verlauf den echten Stand sieht.
 
@@ -38,6 +38,19 @@
 
 <!-- Kopf/Betreiber: neue Karten **unter** dieser Vorlage einfügen (neueste oben oder unten — einheitlich „neueste oben“ bevorzugt). -->
 
+### 2026-11-01 — Guardian Trivy: Coolify development `txnc0e2…` (Next CRITs)
+
+- **Priorität:** P0
+- **Kontext:** Trivy auf tracking-portal **development** (Coolify `txnc0e2ap4siwvz8i797909q`): 5 CRITICAL auf `next` (CVE-2026-75604, GHSA-2464-fhr4-w9xw, GHSA-2xp9-vwfh-vxw4, GHSA-673q-mjm6-r5xr, GHSA-vcvr-r3jv-pc5j) + HIGH brace-expansion. Repo/`main`/`development` schon Next **16.4.3** + Overrides — Dev-Image vermutlich vor Rebuild.
+- **Auftrag:**
+  - next ≥16.4.1 (Ist: 16.4.3) + brace-expansion Overrides verifizieren
+  - Lockfile ok → push falls nötig
+  - Coolify Force-Rebuild **ohne Cache** nur UUID `txnc0e2ap4siwvz8i797909q`
+  - Scan neu → 0 App CRITICAL/HIGH (OS/Residual ignorieren)
+- **Done wenn:** Deploy queued/grün; Trivy App C/H = 0
+- **Status:** 🟡 in Arbeit
+- **Notiz Agent 2:** Kein neuer Dep-Bump nötig; Force-Rebuild Dev-Coolify.
+
 ### 2026-10-29 — Next ≥16.4.3 + Healthcheck (Coolify UUID dr9rrd5…)
 
 - **Priorität:** P0
@@ -48,8 +61,8 @@
   - `/api/health` + Dockerfile `HEALTHCHECK`; typecheck/build grün
   - Coolify Force-Rebuild nur UUID `dr9rrd5plhdu0k43qmux9405` → Guardian Trivy Rescan (nach Commit/Push)
 - **Done wenn:** Image Next ≥16.4.3; Healthcheck grün; Validate grün; Manage unberührt
-- **Status:** 🟢 erledigt
-- **Notiz Agent 2:** `c06928e` auf `main`/`development`; Coolify Force-Rebuild UUID `dr9rrd5…` → deploy `gamkksiekf8wdy0ahbkkamun` (tracking-portal:main). Manage unberührt.
+- **Status:** 🟢 erledigt (Live verifiziert 2026-10-29)
+- **Notiz Agent 2:** `GET https://tracking.dachpro.com/api/health` → 200 `{status:ok,service:tracking-portal}` (neue Route); `/` 200 Next.js. Coolify-GitHub-App war zwischenzeitlich blockierend, inzwischen deployed.
 
 ### 2026-06-25 — Slug `/l/selcuk` → token_revoked auf tracking.dachpro.com
 
