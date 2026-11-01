@@ -9,7 +9,7 @@
 | Repo / Branch | `tracking-portal` — `development` / `main` @ Next **16.4.3** + App-HIGH Overrides |
 | Was existiert (Dateien, Routen) | `/hilfe`, `/api/health`, Dockerfile HEALTHCHECK + curl |
 | Was ist umgesetzt & getestet | Dev Coolify `txnc0e2…` @ `3607fe6` healthy; Trivy **App library C/H = 0** (OS residual ignoriert) |
-| Offen / nächster Schritt | P1 Ausland/Hub |
+| Offen / nächster Schritt | gzip CVE-2026-41992 = Debian Residual (Guardian). P1 Ausland/Hub |
 
 > Regel für Agent 2: Diesen Block bei jedem relevanten Merge aktualisieren (kurz + präzise), damit der Kopf im `project-shop` ohne Chat-Verlauf den echten Stand sieht.
 
