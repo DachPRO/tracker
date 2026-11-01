@@ -35,7 +35,7 @@ RUN pnpm exec prisma generate && pnpm run build
 FROM base AS runner
 ENV NODE_ENV=production
 RUN apt-get update -y \
-  && apt-get install -y --no-install-recommends openssl ca-certificates \
+  && apt-get install -y --no-install-recommends openssl ca-certificates curl \
   && rm -rf /var/lib/apt/lists/*
 RUN groupadd --system --gid 1001 nodejs \
   && useradd --system --uid 1001 --gid nodejs nextjs
