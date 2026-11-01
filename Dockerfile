@@ -36,7 +36,8 @@ FROM base AS runner
 ENV NODE_ENV=production
 RUN apt-get update -y \
   && apt-get install -y --no-install-recommends openssl ca-certificates curl \
-  && rm -rf /var/lib/apt/lists/*
+  && rm -rf /var/lib/apt/lists/* \
+  && rm -rf /usr/local/lib/node_modules/npm /usr/local/bin/npm /usr/local/bin/npx
 RUN groupadd --system --gid 1001 nodejs \
   && useradd --system --uid 1001 --gid nodejs nextjs
 
